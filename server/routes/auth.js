@@ -20,11 +20,13 @@ router.post("/login", async (request, response) => {
   if (user && (await user.comparePassword(password))) {
     console.log("Corrected Password!!");
     const userForToken = {
-      username: user.username,
       id: user._id,
+      isAdmin: user.isAdmin,
     };
 
-    const token = jwt.sign(userForToken, process.env.SECRET);
+    const token = jwt.sign(userForToken, process.env.SECRET, {
+      expiresIn: "2d",
+    });
 
     response.status(200).send({ token, username: user.username });
   } else {
