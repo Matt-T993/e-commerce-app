@@ -1,0 +1,32 @@
+.card {
+  width: 50vh;
+  height: 500px;
+  overflow: hidden !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.content {
+  font-family: "Open Sans";
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+  transform: translate(0, 20px);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 24px;
+  color: black;
+  text-transform: uppercase;
+}
+
+.content:hover {
+  opacity: 1;
+  transform: translate(0, 0px);
+}
