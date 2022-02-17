@@ -26,6 +26,8 @@
 
 .links {
   margin-left: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
   list-style: none;
   cursor: pointer;
 }

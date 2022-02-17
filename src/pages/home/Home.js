@@ -6,12 +6,10 @@ import "./home.css";
 const Home = () => {
   return (
     <div classname="container">
-      <div className="home-wrapper">
-        <div className="grid">
-          {Catogories.map((catogory, index) => (
-            <Card key={index} title={catogory.title} img={catogory.img}></Card>
-          ))}
-        </div>
+      <div className="home-content">
+        {Catogories.map((catogory, index) => (
+          <Card key={index} title={catogory.title} img={catogory.img}></Card>
+        ))}
       </div>
     </div>
   );

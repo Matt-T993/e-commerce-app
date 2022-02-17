@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { BsCart4 } from "react-icons/bs";
 
 import "./navbar.css";
 
@@ -7,12 +10,17 @@ const Navbar = () => {
     <div className="navbar-container">
       <div className="navbar-wrapper">
         <div className="navbar-left">
-          <h1 className="logo">E-Commerce</h1>
+          <Link to="/">
+            <h1 className="logo">E-Commerce</h1>
+          </Link>
           <ul className="left-lists">
-            <li className="links">Mens</li>
-            <li className="links">Women</li>
+            <Link to="/products" className="links">
+              Mens
+            </Link>
+            <Link to="/product" className="links">
+              Women
+            </Link>
             <li className="links">Accessories</li>
-            <li className="links">Collections</li>
           </ul>
           <form>
             <input className="searchbar" type="text" placeholder="Search..." />
@@ -21,8 +29,12 @@ const Navbar = () => {
 
         <div className="navbar-right">
           <ul className="right-lists">
-            <li className="links">Login</li>
-            <li className="links">Cart</li>
+            <Link to="/login" className="links">
+              Login
+            </Link>
+            <Link to="/cart" className="links">
+              <BsCart4 />
+            </Link>
           </ul>
         </div>
       </div>

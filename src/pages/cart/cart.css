@@ -1,0 +1,43 @@
+.cart-wrapper {
+  width: 40%;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 12px;
+  margin-bottom: 40px;
+}
+
+.cart-header {
+  text-align: center;
+}
+
+.cart-img {
+  width: 150px;
+  padding-right: 50px;
+}
+.cart-product {
+  margin-bottom: -10px;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  margin-top: -15px;
+}
+.cart-size {
+  margin-bottom: -10px;
+}
+
+.counter-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-style: none;
+}
