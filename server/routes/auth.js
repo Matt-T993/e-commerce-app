@@ -4,18 +4,18 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 router.post("/login", async (request, response) => {
-  const { username, password } = request.body;
+  const { email, password } = request.body;
 
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email });
   console.log("User:", user);
-  if (!username || !password) {
+  if (!email || !password) {
     return response
       .status(400)
       .json({ message: "Not all fields have been entered" });
   }
 
   if (!user) {
-    return response.status(401).json({ error: "invalid username or password" });
+    return response.status(401).json({ error: "invalid email or password" });
   }
   if (user && (await user.comparePassword(password))) {
     console.log("Corrected Password!!");
@@ -28,20 +28,21 @@ router.post("/login", async (request, response) => {
       expiresIn: "2d",
     });
 
-    response.status(200).send({ token, username: user.username });
+    response.status(200).send({ token, email: user.email });
   } else {
     return response
       .status(401)
-      .json({ error: "username and password is invalid" });
+      .json({ error: "email and password is invalid" });
   }
 });
 
 // register user
 router.post("/register", async (request, response) => {
   try {
-    const { username, email, password, confirmPassword } = request.body;
+    const { firstName, lastName, email, password, confirmPassword } =
+      request.body;
     //check if all details have been entered
-    if (!username || !email || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return response
         .status(400)
         .json({ message: "Please enter all the details" });
@@ -52,16 +53,17 @@ router.post("/register", async (request, response) => {
         .status(400)
         .json({ message: "Please enter the same password" });
     }
-    // checking if the username exists in the DB
-    const existingUser = await User.findOne({ username: username });
+    // checking if the email exists in the DB
+    const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-      return response.status(400).json({ message: "Username already exists" });
+      return response.status(400).json({ message: "Email already exists" });
     }
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-      username: request.body.username,
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
       email: request.body.email,
       password: hashPassword,
     });

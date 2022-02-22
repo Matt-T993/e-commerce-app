@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    title: {
+    brand: {
       type: String,
       required: true,
       unique: true,
@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema(
     size: {
       type: String,
     },
-    color: {
+    colour: {
       type: String,
     },
     price: {

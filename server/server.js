@@ -3,13 +3,21 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
+const productRoute = require("./routes/products");
+const orderRoute = require("./routes/order");
+const cartRoute = require("./routes/cart");
+
 const cors = require("cors");
+const { request } = require("express");
 
 dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
+app.use("/api/products", productRoute);
+app.use("/api/order", orderRoute);
+app.use("/api/cart", cartRoute);
 
 mongoose
   .connect(process.env.MONGO_URL)
