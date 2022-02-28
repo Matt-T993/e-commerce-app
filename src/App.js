@@ -6,15 +6,20 @@ import Navbar from "./components/navbar/Navbar";
 import Register from "./pages/register/Register";
 import Products from "./pages/product/Products";
 import Product from "./pages/product/Product";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login user={user} setUser={setUser} />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<Products />} />

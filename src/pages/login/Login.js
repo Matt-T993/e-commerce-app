@@ -1,8 +1,26 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
+import loginService from "../../services/login";
 
-const Login = () => {
+const Login = ({ user, setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const formHandler = (event) => {
+    event.preventDefault();
+    console.log("Form submitted", email, password);
+    loginService
+      .login({ email, password })
+      .then((data) => {
+        console.log("Success:", data);
+        setUser(data);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
   return (
     <div className="login-container">
       <div className="login-wrapper">
@@ -19,10 +37,22 @@ const Login = () => {
         </Link>
         <h3 className="customer-title">Registered Customers</h3>
         <hr className="login-hr" />
-        <form className="login-form">
-          <input className="login-input" placeholder="  Email Address" />
-          <input className="login-input" placeholder="  Password" />
-          <button className="btn">Login</button>
+        <form className="login-form" onSubmit={formHandler}>
+          <input
+            className="login-input"
+            placeholder="  Email Address"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="login-input"
+            placeholder="  Password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="btn" type="submit">
+            Login
+          </button>
         </form>
       </div>
     </div>
