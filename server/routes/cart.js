@@ -1,8 +1,13 @@
 const router = require("express").Router();
 const Cart = require("../models/cart");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 // Get all cart
-router.get("/", async (request, response) => {
+router.get("/", verifyTokenAndAdmin, async (request, response) => {
   try {
     const carts = await Cart.find();
     response.status(200).json(carts);
@@ -13,7 +18,7 @@ router.get("/", async (request, response) => {
 
 //Create a cart item
 
-router.post("/", async (request, response) => {
+router.post("/", verifyToken, async (request, response) => {
   const newCart = new Cart(request.body);
 
   try {
@@ -24,7 +29,7 @@ router.post("/", async (request, response) => {
   }
 });
 // Update cart item
-router.put("/:id", async (request, response) => {
+router.put("/:id", verifyTokenAndAuthorization, async (request, response) => {
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -41,23 +46,31 @@ router.put("/:id", async (request, response) => {
 
 //Delete cart item
 
-router.delete("/:id", async (request, response) => {
-  try {
-    const cart = await Cart.findByIdAndDelete(request.params.id);
-    response.status(200).json("Cart has been deleted...");
-  } catch (err) {
-    response.status(500).json(err);
+router.delete(
+  "/:id",
+  verifyTokenAndAuthorization,
+  async (request, response) => {
+    try {
+      const cart = await Cart.findByIdAndDelete(request.params.id);
+      response.status(200).json("Cart has been deleted...");
+    } catch (err) {
+      response.status(500).json(err);
+    }
   }
-});
+);
 
 // find  user cart item
-router.get("/find/:userId", async (request, response) => {
-  try {
-    const cart = await Cart.findOne({ userId: request.params.userId });
-    response.status(200).json(cart);
-  } catch (err) {
-    response.status(500).json(err);
+router.get(
+  "/find/:userId",
+  verifyTokenAndAuthorization,
+  async (request, response) => {
+    try {
+      const cart = await Cart.findOne({ userId: request.params.userId });
+      response.status(200).json(cart);
+    } catch (err) {
+      response.status(500).json(err);
+    }
   }
-});
+);
 
 module.exports = router;

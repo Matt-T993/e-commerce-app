@@ -1,8 +1,13 @@
 const router = require("express").Router();
 const Order = require("../models/order");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 //Create an order
-router.post("/", async (request, response) => {
+router.post("/", verifyToken, async (request, response) => {
   const body = request.body;
   if (body.content === "") {
     return response.status(400).json({ error: "content missing" });
@@ -18,7 +23,7 @@ router.post("/", async (request, response) => {
 });
 
 // Update an order
-router.put("/:id", async (request, response) => {
+router.put("/:id", verifyTokenAndAdmin, async (request, response) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       request.params.id,
@@ -34,7 +39,7 @@ router.put("/:id", async (request, response) => {
 });
 
 // Delete an order
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", verifyTokenAndAdmin, async (request, response) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
     response.status(200).json("Order has been deleted");
@@ -45,7 +50,7 @@ router.delete("/:id", async (request, response) => {
 
 //get all orders
 
-router.get("/", async (request, response) => {
+router.get("/", verifyTokenAndAdmin, async (request, response) => {
   try {
     const orders = await Order.find();
     response.status(200).json(orders);
@@ -54,12 +59,16 @@ router.get("/", async (request, response) => {
   }
 });
 // Get User orders
-router.get("/find/:userId", async (request, response) => {
-  try {
-    const orders = await Order.find({ userId: request.params.userId });
-    response.status(200).json(orders);
-  } catch (err) {
-    response.status(500).json(err);
+router.get(
+  "/find/:userId",
+  verifyTokenAndAuthorization,
+  async (request, response) => {
+    try {
+      const orders = await Order.find({ userId: request.params.userId });
+      response.status(200).json(orders);
+    } catch (err) {
+      response.status(500).json(err);
+    }
   }
-});
+);
 module.exports = router;

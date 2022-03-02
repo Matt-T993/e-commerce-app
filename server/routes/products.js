@@ -1,5 +1,10 @@
 const router = require("express").Router();
 const Product = require("../models/product");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 //Get all products
 router.get("/", (request, response) => {
@@ -22,7 +27,7 @@ router.get("/:id", (request, response) => {
 
 //Create Product
 
-router.post("/", async (request, response) => {
+router.post("/", verifyTokenAndAdmin, async (request, response) => {
   const body = request.body;
   if (body.content === "") {
     return response.status(400).json({ error: "content missing" });
@@ -33,7 +38,7 @@ router.post("/", async (request, response) => {
 });
 
 //Update product
-router.put("/:id", async (request, response) => {
+router.put("/:id", verifyTokenAndAdmin, async (request, response) => {
   const body = request.body;
 
   const product = {
@@ -53,7 +58,7 @@ router.put("/:id", async (request, response) => {
     .catch((error) => next(error));
 });
 // Delete product
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", verifyTokenAndAdmin, async (request, response) => {
   Product.findByIdAndDelete(request.params.id)
     .then((result) => {
       response.status(200).json("Product has been deleted");

@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/products");
 const orderRoute = require("./routes/order");
 const cartRoute = require("./routes/cart");
+const userRoute = require("./routes/user");
 
 const cors = require("cors");
 const { request } = require("express");
@@ -15,6 +16,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/cart", cartRoute);
