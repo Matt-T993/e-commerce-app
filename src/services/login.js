@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://localhost:5000/api/auth/";
+const baseURL = "/api/auth/";
 
 const login = ({ email, password }) => {
   console.log("POST", baseURL + "login");

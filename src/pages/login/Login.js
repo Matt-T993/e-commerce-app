@@ -1,26 +1,26 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./login.css";
-import loginService from "../../services/login";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../action/userAction";
 
-const Login = ({ user, setUser }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo, error } = userLogin;
 
   const formHandler = (event) => {
     event.preventDefault();
     console.log("Form submitted", email, password);
-    loginService
-      .login({ email, password })
-      .then((data) => {
-        console.log("Success:", data);
-        setUser(data);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
+    dispatch(login(email, password));
   };
 
+  if (userInfo) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className="login-container">
       <div className="login-wrapper">

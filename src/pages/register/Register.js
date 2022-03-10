@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./register.css";
-import loginService from "../../services/login";
+import { register } from "../../action/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,25 +11,38 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, error } = userRegister;
+
   const formHandler = (event) => {
     event.preventDefault();
-    console.log(
-      "Form submitted",
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword
-    );
-    loginService
-      .register({ firstName, lastName, email, password, confirmPassword })
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
+    dispatch(register(firstName, lastName, email, password, confirmPassword));
+    console.log("success");
   };
+
+  // const formHandler = (event) => {
+  //   event.preventDefault();
+  //   console.log(
+  //     "Form submitted",
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password,
+  //     confirmPassword
+  //   );
+  //   loginService
+  //     .register({ firstName, lastName, email, password, confirmPassword })
+  //     .then((data) => {
+  //       console.log("Success:", data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error", error);
+  //     });
+  // };
+  if (userInfo) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="login-container">

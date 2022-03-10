@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetails } from "../../action/productAction";
+import { useParams } from "react-router-dom";
 import "./product.css";
 
 const Product = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+
+  useEffect(() => {
+    dispatch(listProductDetails(id));
+  }, [dispatch]);
+
+  // const location = useLocation();
+  // const id = location.pathname.split("/")[2];
+  // const [product, setProduct] = useState({});
+
+  // useEffect(() => {
+  //   const getProduct =    () => {
+  //     try {
+  //       const res = await axios.get("/products/" + id);
+  //       setProduct(res.data);
+  //     } catch {}
+  //   };
+  //   getProduct();
+  // }, [id]);
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -10,8 +37,8 @@ const Product = () => {
         </div>
         <div className="right">
           <div className="right-header">
-            <h3 className="header">Green shirt</h3>
-            <p>$499.95</p>
+            <h3 className="header">{product.brand}</h3>
+            <p>${product.price}</p>
           </div>
           <div className="size">
             <input class type="checkbox" />
@@ -23,13 +50,13 @@ const Product = () => {
           </div>
           <button className="btn">Add to Bag</button>
           <div className="description">
-            <p> full zip hooded shell jacket</p>
+            <p> {product.desc}</p>
             <h3 className="header">Product Details</h3>
-            <ul className="detail-lists">
+            <div className="detail-lists">
               <li className="detail">Hood strong</li>
               <li className="detail">qiwnvqwpivnpnqf</li>
               <li className="detail">This is a nice jacket</li>
-            </ul>
+            </div>
           </div>
         </div>
       </div>
