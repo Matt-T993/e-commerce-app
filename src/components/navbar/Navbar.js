@@ -15,12 +15,8 @@ const Navbar = () => {
           </Link>
           <ul className="left-lists">
             <Link to="/products" className="links">
-              Mens
+              Products
             </Link>
-            <Link to="/product" className="links">
-              Women
-            </Link>
-            <li className="links">Accessories</li>
           </ul>
           <form>
             <input className="searchbar" type="text" placeholder="Search..." />

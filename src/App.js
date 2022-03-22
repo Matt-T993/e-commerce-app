@@ -14,18 +14,15 @@ function App() {
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   return (
-    <div className="App">
+    <div>
       <Router>
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={<Login user={user} setUser={setUser} />}
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/products" element={<Products contents={products} />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Product />} />
         </Routes>
       </Router>

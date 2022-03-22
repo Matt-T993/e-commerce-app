@@ -27,7 +27,7 @@ router.get("/:id", (request, response) => {
 
 //Create Product
 
-router.post("/", verifyTokenAndAdmin, async (request, response) => {
+router.post("/", async (request, response) => {
   const body = request.body;
   if (body.content === "") {
     return response.status(400).json({ error: "content missing" });

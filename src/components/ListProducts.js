@@ -20,7 +20,7 @@ const ListProducts = () => {
       {/* {error && <div className="error-message">{error}</div>} */}
       <div className="card-img">
         <Link to={`/products/${item._id}`}>
-          <img className="image" src={item.image} alt="product" />
+          <img className="image" src={`/image/` + item.img} alt="product" />
         </Link>
       </div>
       <div className="card-header">

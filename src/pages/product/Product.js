@@ -15,25 +15,15 @@ const Product = () => {
     dispatch(listProductDetails(id));
   }, [dispatch]);
 
-  // const location = useLocation();
-  // const id = location.pathname.split("/")[2];
-  // const [product, setProduct] = useState({});
-
-  // useEffect(() => {
-  //   const getProduct =    () => {
-  //     try {
-  //       const res = await axios.get("/products/" + id);
-  //       setProduct(res.data);
-  //     } catch {}
-  //   };
-  //   getProduct();
-  // }, [id]);
-
   return (
     <div className="container">
       <div className="wrapper">
         <div className="left">
-          <img className="product-image" src="/image/1.jpg" alt="product" />
+          <img
+            className="product-image"
+            src={`/image/` + product.img}
+            alt="product"
+          />
         </div>
         <div className="right">
           <div className="right-header">
