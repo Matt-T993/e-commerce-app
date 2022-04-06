@@ -20,3 +20,12 @@
   display: flex;
   flex-direction: column;
 }
+.error-message {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8d6d6;
+}

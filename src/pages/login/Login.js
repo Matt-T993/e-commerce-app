@@ -37,6 +37,7 @@ const Login = () => {
         </Link>
         <h3 className="customer-title">Registered Customers</h3>
         <hr className="login-hr" />
+        {error && <div className="error-message">{error}</div>}
         <form className="login-form" onSubmit={formHandler}>
           <input
             className="login-input"

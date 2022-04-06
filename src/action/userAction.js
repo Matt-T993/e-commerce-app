@@ -1,4 +1,3 @@
-import loginService from "../services/login";
 import axios from "axios";
 import {
   LOGIN_REQUEST,
@@ -27,30 +26,10 @@ export const login = (email, password) => async (dispatch) => {
     });
   }
 };
-// export const login = (email, password) => async (dispatch) => {
-//   dispatch({ type: LOGIN_REQUEST, payload: { email, password } });
-
-//   try {
-//     const { data } = await loginService.login({ email, password });
-//     dispatch({ type: LOGIN_SUCCESS, payload: data });
-//     console.log(JSON.stringify(data));
-//     localStorage.setItem("userInfo", JSON.stringify(data));
-//   } catch (error) {
-//     dispatch({
-//       type: LOGIN_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
 
 // Logout action
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
-  // localStorage.removeItem('cartItems')
-  await axios.delete("/api/login");
   dispatch({ type: LOGOUT });
 };
 
@@ -61,7 +40,7 @@ export const register =
     dispatch({ type: REGISTER_REQUEST, payload: { email, password } });
 
     try {
-      const { data } = await loginService.register({
+      const { data } = await axios.post("/api/auth/register", {
         firstName,
         lastName,
         email,
@@ -70,7 +49,6 @@ export const register =
       });
       dispatch({ type: REGISTER_SUCCESS, payload: data });
       dispatch({ type: LOGIN_SUCCESS, payload: data });
-
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({

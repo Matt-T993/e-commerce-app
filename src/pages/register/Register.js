@@ -21,25 +21,6 @@ const Register = () => {
     console.log("success");
   };
 
-  // const formHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log(
-  //     "Form submitted",
-  //     firstName,
-  //     lastName,
-  //     email,
-  //     password,
-  //     confirmPassword
-  //   );
-  //   loginService
-  //     .register({ firstName, lastName, email, password, confirmPassword })
-  //     .then((data) => {
-  //       console.log("Success:", data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error", error);
-  //     });
-  // };
   if (userInfo) {
     return <Navigate to="/" />;
   }
@@ -50,6 +31,7 @@ const Register = () => {
         <h1 className="reg-header">Create New Customer Account</h1>
         <h3 className="reg-title"> Create account</h3>
         <hr className="login-hr" />
+        {error && <div className="error-message">{error}</div>}
         <form className="reg-form" onSubmit={formHandler}>
           <input
             className="reg-input"

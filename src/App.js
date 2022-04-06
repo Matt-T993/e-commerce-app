@@ -6,12 +6,12 @@ import Navbar from "./components/navbar/Navbar";
 import Register from "./pages/register/Register";
 import Products from "./pages/product/Products";
 import Product from "./pages/product/Product";
-import { useState } from "react";
+
 import { useSelector } from "react-redux";
 
 function App() {
-  const [user, setUser] = useState(null);
   const productList = useSelector((state) => state.productList);
+
   const { products } = productList;
   return (
     <div>
